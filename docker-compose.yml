@@ -1,0 +1,46 @@
+version: "3.7"
+services:
+  db:
+    image: mongo
+    container_name: "mongodb"
+    restart: "always"
+    volumes:
+      - /src/db/mongo-volume:/data/db
+      - /src/db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
+    ports:
+      - "27019:27017"
+    environment:
+      MONGO_INITDB_DATABASE: weather
+      MONGO_INITDB_ROOT_USERNAME: devuser
+      MONGO_INITDB_ROOT_PASSWORD: devpass
+    networks:
+      - default
+  server:
+    image: node:14.3-slim
+    container_name: "server"
+    ports:
+      - "8080:8080"
+    working_dir: "/api"
+    volumes:
+      - ./src/api:/api
+    command:
+      - sh
+      - -c
+      - |
+        npm install
+        npm start
+    networks:
+      - default
+  client:
+    stdin_open: true
+    container_name: "client"
+    build: ./src/ui
+    ports:
+      - "3000:3000"
+    volumes:
+      - "./src/ui:/app"
+
+networks:
+  default:
+    external:
+      name: dev-network

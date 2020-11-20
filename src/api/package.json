@@ -1,0 +1,33 @@
+{
+  "name": "weather-app-api",
+  "version": "1.0.0",
+  "description": "Another Weather App",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diegodario88/weatherApp.git"
+  },
+  "keywords": [
+    "weather",
+    "app",
+    "react",
+    "test"
+  ],
+  "author": "Diego Dario",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/diegodario88/weatherApp/issues"
+  },
+  "homepage": "https://github.com/diegodario88/weatherApp#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "mongoose": "^5.10.15"
+  }
+}
