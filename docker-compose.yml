@@ -1,18 +1,25 @@
 version: "3.7"
 services:
   db:
-    image: mongo
     container_name: "mongodb"
+    build: ./src/db
     restart: "always"
-    volumes:
-      - /src/db/mongo-volume:/data/db
-      - /src/db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo-js:ro
     ports:
-      - "27019:27017"
+      - "27017:27017"
+    networks:
+      - default
+  mongo-express:
+    image: mongo-express
+    container_name: "mongo-express"
+    restart: always
+    ports:
+      - 8081:8081
+    depends_on:
+      - db
     environment:
-      MONGO_INITDB_DATABASE: weather
-      MONGO_INITDB_ROOT_USERNAME: devuser
-      MONGO_INITDB_ROOT_PASSWORD: devpass
+      ME_CONFIG_MONGODB_ADMINUSERNAME: admin-user
+      ME_CONFIG_MONGODB_ADMINPASSWORD: admin-password
+      ME_CONFIG_MONGODB_SERVER: mongodb
     networks:
       - default
   server:
@@ -29,6 +36,8 @@ services:
       - |
         npm install
         npm start
+    depends_on:
+      - db
     networks:
       - default
   client:
