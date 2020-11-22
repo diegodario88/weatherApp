@@ -3,10 +3,19 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
+
+const lightTheme = createMuiTheme({
+  palette: {
+    type: "dark"
+  }
+});
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <MuiThemeProvider theme={lightTheme}>
+      <App />
+    </MuiThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

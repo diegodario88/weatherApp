@@ -27,7 +27,9 @@ function fakeWeather(req, res) {
 async function openWeather(req, res) {
     try {
         const { q, lat, lon } = req.query;
+
         const { data } = await weatherService(q, lat, lon);
+        
         const weather = new Weather(data);
 
         weather.save((err, doc) => {
@@ -37,7 +39,7 @@ async function openWeather(req, res) {
 
         res.status(200).send(data);
     } catch (error) {
-        console.error('Are we empty? 🤔');
+        console.error('Are we up? 🤔');
         return res.status(400);
     }
 }
