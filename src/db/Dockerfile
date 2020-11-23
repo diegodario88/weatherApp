@@ -5,3 +5,4 @@ ENV MONGO_INITDB_ROOT_PASSWORD admin-password
 ENV MONGO_INITDB_DATABASE admin
 
 ADD mongo-init.js /docker-entrypoint-initdb.d/
+VOLUME ./mongo-volume /data/db

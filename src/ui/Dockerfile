@@ -1,12 +1,14 @@
 FROM node:alpine
 
+RUN mkdir -p /app
+
 WORKDIR /app
 
 ENV PATH /app/node_modules/.bin:$PATH
 
 COPY package.json /app
 
-RUN npm install
-RUN npm install react-scripts@3.3.1 -g
+RUN npm install react-scripts -g
+RUN npm install --legacy-peer-deps
 
 CMD ["npm", "start" ]
