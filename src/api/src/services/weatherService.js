@@ -3,7 +3,8 @@ const axios = require('axios').default;
 /**
  * @param {string|undefined} query 
  * @param {number|undefined} lat 
- * @param {number|undefined} lon 
+ * @param {number|undefined} lon
+ * @returns Promise of openWeather response 
  */
 const weatherService = async (query, lat, lon) => {
     try {
@@ -32,9 +33,3 @@ const weatherService = async (query, lat, lon) => {
 }
 
 module.exports = weatherService;
-
-
-
-
-
-

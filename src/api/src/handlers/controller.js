@@ -1,5 +1,6 @@
 const Weather = require('../models/weather.model');
 const weatherService = require('../services/weatherService');
+const cacheService = require('../services/cacheService');
 
 function index(req, res) {
     res.status(200).send({
@@ -11,25 +12,20 @@ function index(req, res) {
     })
 }
 
-function fakeWeather(req, res) {
-    try {
-        const entries = require('../../openweather-mock.json');
-        if (entries) return res.status(200).json(entries);
-        return res.status(400);
-    } catch (error) {
-        console.error('Are we empty? 🤔');
-    }
-}
 /**
  * @param {import('express').Request} req 
  * @param {import('express').Response} res 
  */
 async function openWeather(req, res) {
     try {
-        const { q, lat, lon } = req.query;
+        const { q, lon, lat } = req.query;
+        const responseCache = await cacheService(q, lon, lat);
+
+        if (responseCache.length) {
+            return res.status(200).send(responseCache);
+        }
 
         const { data } = await weatherService(q, lat, lon);
-        
         const weather = new Weather(data);
 
         weather.save((err, doc) => {
@@ -37,11 +33,11 @@ async function openWeather(req, res) {
             console.log("Document inserted successfully! docId:", doc._id);
         })
 
-        res.status(200).send(data);
+        return res.status(200).send(data);
     } catch (error) {
-        console.error('Are we up? 🤔');
+        console.error('Are we up? 🤔', error.message);
         return res.status(400);
     }
 }
 
-module.exports = { index, fakeWeather, openWeather }
+module.exports = { index, openWeather }
