@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const helmet = require('helmet');
 const mongo = require('mongoose');
 const routes = require('./routes/router');
 
@@ -10,6 +11,7 @@ const app = express();
 const DB_CONFIG = { useNewUrlParser: true, useUnifiedTopology: true, }
 
 app.use(cors());
+app.use(helmet());
 app.use(bodyParser.json());
 app.use(routes);
 app.listen(PORT, () => console.log(`Api Running at port:...${PORT}`));

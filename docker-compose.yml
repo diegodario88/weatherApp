@@ -27,6 +27,7 @@ services:
     container_name: "server"
     ports:
       - "8080:8080"
+      - "9229:9229"
     working_dir: "/api"
     volumes:
       - ./src/api:/api
