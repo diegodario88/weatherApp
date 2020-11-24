@@ -11,30 +11,38 @@ const useStyles = makeStyles((theme) => ({
   img: {
     width: "100%",
     position: "relative",
-    top: "3vh"
+    top: "-4vh"
   },
   caption: {
     color: theme.palette.text.secondary,
     position: "relative",
-    top: "-2vh"
+    top: "-8vh"
   }
 }));
 
 const CardWeather = ({ props }) => {
   const classes = useStyles();
-  const options = { month: 'long', day: '2-digit', hour: '2-digit', minute: '2-digit' };
+  const options = { month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' };
   const date = new Date().toLocaleDateString('pt-BR', options);
 
   return (
     <div className={classes.root}>
       <Grid container>
         <Grid item xs={6}>
+          <Typography className={classes.weatherSubtitle} align="center">{props.name}</Typography>
+        </Grid>
+        <Grid item xs={6}>
           <Typography
             className={classes.weatherSubtitle}
-            align="left"
+            align="center"
             gutterBottom={true}
             variant="subtitle1">{date}
           </Typography>
+        </Grid>
+      </Grid>
+
+      <Grid container>
+        <Grid item xs={6}>
           <Typography variant="h1">{`${Math.round(props.main.temp)}°`}</Typography>
           <Typography
             className={classes.weatherSubtitle}
@@ -54,7 +62,7 @@ const CardWeather = ({ props }) => {
           </Typography>
         </Grid>
       </Grid>
-      <Typography>{ props.name }</Typography>
+
     </div>
   );
 }
