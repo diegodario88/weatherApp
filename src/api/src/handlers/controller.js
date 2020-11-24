@@ -1,6 +1,7 @@
+const Forecast = require('../models/forecast.model');
 const Weather = require('../models/weather.model');
-const weatherService = require('../services/weatherService');
-const cacheService = require('../services/cacheService');
+const { weatherService, forecastService } = require('../services/resourceService');
+const { cacheWeather, cacheForecast } = require('../services/cacheService');
 
 function index(req, res) {
     res.status(200).send({
@@ -18,11 +19,14 @@ function index(req, res) {
  */
 async function openWeather(req, res) {
     try {
-        const { q, lon, lat } = req.query;
-        const responseCache = await cacheService(q, lon, lat);
+        let { q, lon, lat } = req.query;
+        lon = +Number(lon).toFixed(1);
+        lat = +Number(lat).toFixed(1);
 
-        if (responseCache.length) {
-            return res.status(200).send(responseCache);
+        const responseCache = await cacheWeather(q, lon, lat);
+        const isResponse = responseCache.length;
+        if (isResponse) {
+            return res.status(200).send(responseCache[isResponse - 1]);
         }
 
         const { data } = await weatherService(q, lat, lon);
@@ -36,8 +40,39 @@ async function openWeather(req, res) {
         return res.status(200).send(data);
     } catch (error) {
         console.error('Are we up? 🤔', error.message);
-        return res.status(400);
+        return res.status(400).send();
     }
 }
 
-module.exports = { index, openWeather }
+/**
+ * @param {import('express').Request} req 
+ * @param {import('express').Response} res 
+ */
+async function openWeatherForecast(req, res) {
+    try {
+        let { q, lon, lat } = req.query;
+        lon = +Number(lon).toFixed(1);
+        lat = +Number(lat).toFixed(1);
+
+        const responseCache = await cacheForecast(q, lon, lat);
+        const isResponse = responseCache.length;
+        if (isResponse) {
+            return res.status(200).send(responseCache[isResponse - 1]);
+        }
+
+        const { data } = await forecastService(q, lat, lon);
+        const forecast = new Forecast(data);
+
+        forecast.save((err, doc) => {
+            if (err) throw new Error(err);
+            console.log("Document inserted successfully! docId:", doc._id);
+        })
+
+        return res.status(200).send(data);
+    } catch (error) {
+        console.error('Are we up? 🤔', error.message);
+        return res.status(400).send();
+    }
+}
+
+module.exports = { index, openWeather, openWeatherForecast }

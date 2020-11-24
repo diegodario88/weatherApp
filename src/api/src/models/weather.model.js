@@ -2,44 +2,89 @@ const mongoose = require('mongoose')
 
 const weatherSchema = new mongoose.Schema({
     coord: {
-        lon: Number,
-        lat: Number,
+        lon: {
+            type: 'Number'
+        },
+        lat: {
+            type: 'Number'
+        }
     },
-    weather: [{
-        id: Number,
-        main: String,
-        description: String,
-        icon: String,
-    }],
-    base: String,
+    weather: {
+        type: [
+            'Mixed'
+        ]
+    },
+    base: {
+        type: 'String'
+    },
     main: {
-        temp: Number,
-        feels_like: Number,
-        temp_min: Number,
-        temp_max: Number,
-        pressure: Number,
-        humidity: Number,
+        temp: {
+            type: 'Number'
+        },
+        feels_like: {
+            type: 'Number'
+        },
+        temp_min: {
+            type: 'Number'
+        },
+        temp_max: {
+            type: 'Number'
+        },
+        pressure: {
+            type: 'Number'
+        },
+        humidity: {
+            type: 'Number'
+        }
     },
-    visibility: Number,
+    visibility: {
+        type: 'Number'
+    },
     wind: {
-        speed: Number,
-        deg: Number
+        speed: {
+            type: 'Number'
+        },
+        deg: {
+            type: 'Number'
+        }
     },
     clouds: {
-        all: Number
+        all: {
+            type: 'Number'
+        }
     },
-    dt: Number,
+    dt: {
+        type: 'Number'
+    },
     sys: {
-        type: { type: Number },
-        id: Number,
-        country: String,
-        sunrise: Number,
-        sunset: Number
+        type: {
+            type: 'Number'
+        },
+        id: {
+            type: 'Number'
+        },
+        country: {
+            type: 'String'
+        },
+        sunrise: {
+            type: 'Number'
+        },
+        sunset: {
+            type: 'Number'
+        }
     },
-    timezone: Number,
-    id: Number,
-    name: String,
-    cod: Number
+    timezone: {
+        type: 'Number'
+    },
+    id: {
+        type: 'Number'
+    },
+    name: {
+        type: 'String'
+    },
+    cod: {
+        type: 'Number'
+    }
 }, { timestamps: true })
 
 const Weather = mongoose.model('Weather', weatherSchema)

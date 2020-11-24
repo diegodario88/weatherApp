@@ -29,7 +29,7 @@ function App() {
       setIsLoading(true);
     }
     if (e.key === "Enter") {
-      fetch(`${api.BASE_URL}?q=${query},br&${api.LAT}&${api.LON}`)
+      fetch(`${api.BASE_URL}?q=${query}&${api.LAT}&${api.LON}`)
         .then((res) => res.json())
         .then((result) => {
           setQuery("");
