@@ -4,7 +4,7 @@ import Autocomplete from '@material-ui/lab/Autocomplete';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import api from '../constants.js';
 
-const SearchCities = ({ handleWeather, handleIsLoading }) => {
+const SearchCities = ({ handleWeather, handleForecast, handleIsLoading }) => {
     const [open, setOpen] = useState(false);
     const [options, setOptions] = useState([]);
     const loading = open && options.length === 0;
@@ -20,11 +20,15 @@ const SearchCities = ({ handleWeather, handleIsLoading }) => {
             const { latitude, longitude } = value;
             handleIsLoading(true);
             handleWeather({});
+            handleForecast({});
             
             (async () => {
-                const response = await fetch(`${api.BASE_URL}?lat=${latitude}&lon=${longitude}`);
-                const weatherResponse = await response.json();
+                const firstResponse = await fetch(`${api.WEATHER_BASE_URL}?lat=${latitude}&lon=${longitude}`);
+                const secondResponse = await fetch(`${api.FORECAST_BASE_URL}?lat=${latitude}&lon=${longitude}`);
+                const weatherResponse = await firstResponse.json();
+                const forecastResponse = await secondResponse.json();
                 handleWeather(weatherResponse);
+                handleForecast(forecastResponse);
             })();
         }
     }
