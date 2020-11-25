@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.text.secondary,
   },
   img: {
-    width: "100%",
+    maxWidth: "100%",
     position: "relative",
     top: "-4vh"
   },

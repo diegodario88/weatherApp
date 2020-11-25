@@ -2,7 +2,7 @@
 Esse é um projeto para concorrer à uma vaga de Programador FullStack Júnior.
 
 <section>
-    <img src="weather.gif" alt="sol animado" width="250"/>
+    <img src="demo.gif" alt="sol animado" width="500"/>
 </section>
 
 ## Dependências
