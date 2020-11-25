@@ -4,11 +4,10 @@ RUN mkdir -p /app
 
 WORKDIR /app
 
-ENV PATH /app/node_modules/.bin:$PATH
+ENV PATH ./node_modules/.bin:$PATH
 
-COPY package.json /app
+COPY package.json .
 
 RUN npm install react-scripts -g
-RUN npm install --legacy-peer-deps
 
-CMD ["npm", "start" ]
+RUN npm install --legacy-peer-deps
