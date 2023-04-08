@@ -1,4 +1,4 @@
-# WeatherApp - Teste para vaga de Programador Júnior
+# WeatherApp - Teste para vaga de Programador
 Esse é um projeto para concorrer à uma vaga de Programador FullStack.
 
 <section>
