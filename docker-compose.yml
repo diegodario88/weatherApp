@@ -23,7 +23,7 @@ services:
     networks:
       - default
   server:
-    image: node:14.3-slim
+    image: node:16-slim
     container_name: "server"
     ports:
       - "8080:8080"
