@@ -1,5 +1,5 @@
-# WeatherApp - Teste para vaga de Programador
-Esse é um projeto para concorrer à uma vaga de Programador FullStack.
+# WeatherApp
+Esse é um projeto Javascript FullStack.
 
 <section>
     <img src="demo.gif" alt="sol animado" width="500"/>
